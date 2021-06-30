@@ -18,38 +18,85 @@ namespace Application.Services
             CsvService csvMapper = new();
             CsvParser<PriceData> csvParser = new(options: csvParserOptions, mapping: csvMapper);
 
-            var priceDataList = csvParser.ReadFromFile(@"C:\Users\79554\Downloads\PriceData\PriceData_2.csv",
+            var priceDataList = csvParser.ReadFromFile(@"C:\Users\79554\Downloads\PriceData\PriceData_5.csv",
                                                        Encoding.ASCII).ToList();
 
             //logic na dito...
             var finalResults = new List<Result>();
             var results = new List<PriceData>();
 
+            double prevClosingPrice = 0;
             foreach (var priceData in priceDataList)
             {
                 //valid entry ito...
                 //-1 closing price is greater than opening price.
                 //1 opening price is greater than closing price.
                 //0 equals.
-                var status = priceData.Result.OpeningPrice.Value.CompareTo(priceData.Result.ClosingPrice.Value);
-                if (status < 0 || status == 0)
+                var currentOpeningPrice = priceData.Result.OpeningPrice.Value;
+                var status = prevClosingPrice.CompareTo(currentOpeningPrice);
+                if (status is < 0 or 0) //-1 or 0 are valid entries.
                 {
-                    results.Add(priceData.Result);
-                }
-                else if (status > 0)
-                {
-                    if (results.Count > 0) 
+                    status = priceData.Result.OpeningPrice.Value.CompareTo(priceData.Result.ClosingPrice.Value);
+                    if (status is < 0 or 0) //-1 or 0 are valid entries.
                     {
-                        finalResults.Add(new Result
-                        {
-                            Buy = results.Min(x => x.Date),
-                            Sell = results.Max(x => x.Date),
-                            PercentGain = await GetPercentGain(results.Min(x => x.OpeningPrice).Value, results.Max(x => x.ClosingPrice).Value)
-                        });
+                        prevClosingPrice = priceData.Result.ClosingPrice.Value;
+                        results.Add(priceData.Result);
                     }
 
-                    results.Clear();
+                    if (status > 0) // 1 not valid entries.
+                    {
+                        prevClosingPrice = priceData.Result.ClosingPrice.Value;
+                        if (results.Count > 0)
+                        {
+                            finalResults.Add(new Result
+                            {
+                                Buy = results.Min(x => x.Date),
+                                Sell = results.Max(x => x.Date),
+                                PercentGain = await GetPercentGain(results.Min(x => x.OpeningPrice).Value, results.Max(x => x.ClosingPrice).Value)
+                            });
+                        }
+
+                        results.Clear();
+                    }
                 }
+                else if (status > 0) 
+                {
+                    status = priceData.Result.OpeningPrice.Value.CompareTo(priceData.Result.ClosingPrice.Value);
+                    if (status is < 0 or 0) //-1 or 0 valid entries.
+                    {
+                        prevClosingPrice = priceData.Result.ClosingPrice.Value;
+                        if (results.Count > 0)
+                        {
+                            prevClosingPrice = priceData.Result.ClosingPrice.Value;
+
+                            finalResults.Add(new Result
+                            {
+                                Buy = results.Min(x => x.Date),
+                                Sell = results.Max(x => x.Date),
+                                PercentGain = await GetPercentGain(results.Min(x => x.OpeningPrice).Value, results.Max(x => x.ClosingPrice).Value)
+                            });
+                        }
+                        results.Clear();
+                        results.Add(priceData.Result);
+                    }
+                    if (status > 0) // not valid entries...
+                    {
+                        if (results.Count > 0)
+                        {
+                            prevClosingPrice = priceData.Result.ClosingPrice.Value;
+
+                            finalResults.Add(new Result
+                            {
+                                Buy = results.Min(x => x.Date),
+                                Sell = results.Max(x => x.Date),
+                                PercentGain = await GetPercentGain(results.Min(x => x.OpeningPrice).Value, results.Max(x => x.ClosingPrice).Value)
+                            });
+                        }
+
+                        results.Clear();
+                    }
+                }
+                
             }
 
             Console.WriteLine("Buy        | Sell       | Percent Gain");
