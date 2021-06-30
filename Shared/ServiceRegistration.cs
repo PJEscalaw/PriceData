@@ -7,7 +7,7 @@ namespace Shared
     {
         public static void AddInfrastructureShared(this IServiceCollection services) 
         {
-            services.AddTransient<IFileSystemService, FileSystemService>();
+            services.AddTransient<CsvService>();
         }
     }
 }

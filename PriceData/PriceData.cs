@@ -16,7 +16,7 @@ namespace PriceData
         {
             Console.WriteLine("hello from price data.");
             await Task.CompletedTask;
-            await _priceDataService.ReadCsv();
+            await _priceDataService.ProcessPriceData();
         }
     }
 }

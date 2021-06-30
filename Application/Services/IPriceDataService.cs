@@ -4,6 +4,6 @@ namespace Application.Services
 {
     public interface IPriceDataService
     {
-        Task ReadCsv();
+        Task ProcessPriceData();
     }
 }
