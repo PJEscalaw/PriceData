@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using PriceData.WebAPI.Extensions;
 using Shared;
 
 namespace PriceData.WebAPI
@@ -40,6 +41,7 @@ namespace PriceData.WebAPI
             app.UseHttpsRedirection();
             app.UseRouting();
             app.UseAuthorization();
+            app.UseErrorHandlingMiddleware();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
