@@ -13,11 +13,11 @@ namespace Application.Services
 {
     public class PriceDataService : IPriceDataService
     {
-        public async Task<IEnumerable<Result>> ProcessPriceDataAsync()
+        public async Task<IEnumerable<Result>> ProcessPriceDataAsync(string path)
         {
             var finalResults = new List<Result>();
             var results = new List<PriceData>();
-            var priceDataList = await ParsePriceDataCsvAsync();
+            var priceDataList = await ParsePriceDataCsvAsync(path);
 
             double prevClosingPrice = 0;
             foreach (var priceData in priceDataList)
@@ -89,14 +89,13 @@ namespace Application.Services
                 PercentGained = await GetPercentGainAsync(results.Min(x => x.OpeningPrice).Value, results.Max(x => x.ClosingPrice).Value)
             };
         }
-        public async Task<List<CsvMappingResult<PriceData>>> ParsePriceDataCsvAsync()
+        public async Task<List<CsvMappingResult<PriceData>>> ParsePriceDataCsvAsync(string path)
         {
             CsvParserOptions csvParserOptions = new(skipHeader: true, fieldsSeparator: ',');
             CsvService csvMapper = new();
             CsvParser<PriceData> csvParser = new(options: csvParserOptions, mapping: csvMapper);
 
-            var priceDataList = csvParser.ReadFromFile(@"C:\Users\79554\Downloads\PriceData\PriceData_5.csv",
-                                                       Encoding.ASCII).ToList();
+            var priceDataList = csvParser.ReadFromFile(path, Encoding.ASCII).ToList();
             return await Task.FromResult(priceDataList);
         }
         public async Task<double> GetPercentGainAsync(double openingPrice, double closingPrice) => 

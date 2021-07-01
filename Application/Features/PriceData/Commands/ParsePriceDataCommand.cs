@@ -7,7 +7,10 @@ using System.Threading.Tasks;
 
 namespace Application.Features.PriceData.Commands
 {
-    public class ParsePriceDataCommand : IRequest<IEnumerable<Result>>{}
+    public class ParsePriceDataCommand : IRequest<IEnumerable<Result>>
+    {
+        public string Path { get; set; }
+    }
 
     public class ParsePriceDataCommandHandler : IRequestHandler<ParsePriceDataCommand, IEnumerable<Result>>
     {
@@ -19,7 +22,7 @@ namespace Application.Features.PriceData.Commands
         }
         public async Task<IEnumerable<Result>> Handle(ParsePriceDataCommand request, CancellationToken cancellationToken)
         {
-            return await _priceDataService.ProcessPriceDataAsync();
+            return await _priceDataService.ProcessPriceDataAsync(request.Path);
         }
     }
 }

@@ -16,7 +16,8 @@ namespace PriceData
         {
             Console.WriteLine("hello from price data.");
             await Task.CompletedTask;
-            await _priceDataService.ProcessPriceDataAsync();
+            string path = @"";
+            await _priceDataService.ProcessPriceDataAsync(path);
         }
     }
 }
