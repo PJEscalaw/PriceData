@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Builder;
-using PriceData.WebAPI.Middlewares;
+using PriceData.WebApi.Middlewares;
 
-namespace PriceData.WebAPI.Extensions
+namespace PriceData.WebApi.Extensions
 {
     public static class AppExtension
     {

@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 
-namespace PriceData.WebAPI
+namespace PriceData.WebApi
 {
     public class Program
     {

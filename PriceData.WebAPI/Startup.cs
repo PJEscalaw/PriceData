@@ -5,10 +5,11 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
-using PriceData.WebAPI.Extensions;
+using Persistence;
+using PriceData.WebApi.Extensions;
 using Shared;
 
-namespace PriceData.WebAPI
+namespace PriceData.WebApi
 {
     public class Startup
     {
@@ -24,9 +25,10 @@ namespace PriceData.WebAPI
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "PriceData.WebAPI", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "PriceData.WebApi", Version = "v1" });
             });
             services.AddInfrastructureShared();
+            services.AddInfrastructurePersistence();
             services.AddApplication();
         }
 
@@ -36,7 +38,7 @@ namespace PriceData.WebAPI
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "PriceData.WebAPI v1"));
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "PriceData.WebApi v1"));
             }
             app.UseHttpsRedirection();
             app.UseRouting();

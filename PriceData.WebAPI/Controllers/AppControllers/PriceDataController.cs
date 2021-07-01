@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
-namespace PriceData.WebAPI.Controllers.AppControllers
+namespace PriceData.WebApi.Controllers.AppControllers
 {
     public class PriceDataController : BaseApiController
     {

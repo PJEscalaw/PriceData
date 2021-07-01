@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace PriceData.WebAPI.Controllers
+namespace PriceData.WebApi.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]

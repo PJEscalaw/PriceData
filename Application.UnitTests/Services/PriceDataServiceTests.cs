@@ -26,6 +26,7 @@ namespace Application.UnitTests.Services
             var file = string.Format(@"{0}Resources\PriceData_5.csv", Path.GetFullPath(Path.Combine(runningPath, @"..\..\..\")));
            
             var result = await _sut.ParsePriceDataCsvAsync(file);
+
             result.Should().NotBeNull();
             result.Should().HaveCount(8);
             result.Should().BeOfType<List<CsvMappingResult<PriceData>>>();
@@ -56,7 +57,6 @@ namespace Application.UnitTests.Services
         [Test]
         public async Task ProductDataService_ParseFinalResultAsync_ShouldParseResult() 
         {
-            //Arrange
             var priceDataResult = new List<PriceData>()
             {
                 new PriceData
@@ -67,10 +67,8 @@ namespace Application.UnitTests.Services
                 }
             };
 
-            //Act
             var result = await _sut.ParseFinalResultAsync(priceDataResult);
 
-            //Asserts
             result.PercentGained.Should().Be(100);
             result.Should().BeOfType<Result>();
         }

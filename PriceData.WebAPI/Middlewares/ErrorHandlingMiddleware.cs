@@ -6,7 +6,7 @@ using System.Net;
 using System.Text.Json;
 using System.Threading.Tasks;
 
-namespace PriceData.WebAPI.Middlewares
+namespace PriceData.WebApi.Middlewares
 {
     public class ErrorHandlingMiddleware
     {
