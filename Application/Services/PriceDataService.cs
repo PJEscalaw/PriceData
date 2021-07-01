@@ -13,7 +13,7 @@ namespace Application.Services
 {
     public class PriceDataService : IPriceDataService
     {
-        public async Task ProcessPriceDataAsync()
+        public async Task<IEnumerable<Result>> ProcessPriceDataAsync()
         {
             var finalResults = new List<Result>();
             var results = new List<PriceData>();
@@ -38,11 +38,7 @@ namespace Application.Services
                 }
             }
 
-            Console.WriteLine("Buy        | Sell       | Percent Gain");
-            foreach (var finalResult in finalResults)
-            {
-                Console.WriteLine($"{finalResult.Buy.Value.ToString("MM-dd-yyyy")} | {finalResult.Sell.Value.ToString("MM-dd-yyyy")} | {finalResult.PercentGain}");
-            }
+            return finalResults;
         }
         public async Task<double> AddValidFinalResultAsync(List<Result> finalResults, List<PriceData> results, double prevClosingPrice, CsvMappingResult<PriceData> priceData, int status)
         {
@@ -90,7 +86,7 @@ namespace Application.Services
             {
                 Buy = results.Min(x => x.Date),
                 Sell = results.Max(x => x.Date),
-                PercentGain = await GetPercentGainAsync(results.Min(x => x.OpeningPrice).Value, results.Max(x => x.ClosingPrice).Value)
+                PercentGained = await GetPercentGainAsync(results.Min(x => x.OpeningPrice).Value, results.Max(x => x.ClosingPrice).Value)
             };
         }
         public async Task<List<CsvMappingResult<PriceData>>> ParsePriceDataCsvAsync()

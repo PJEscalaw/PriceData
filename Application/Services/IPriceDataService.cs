@@ -13,7 +13,7 @@ namespace Application.Services
         Task<Result> ParseFinalResultAsync(List<PriceData> results);
         Task<double> GetPercentGainAsync(double openingPrice, double closingPrice);
         Task<List<CsvMappingResult<PriceData>>> ParsePriceDataCsvAsync();
-        Task ProcessPriceDataAsync();
+        Task<IEnumerable<Result>> ProcessPriceDataAsync();
 
     }
 }
