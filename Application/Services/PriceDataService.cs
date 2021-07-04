@@ -1,5 +1,8 @@
 ﻿using Application.Enums;
+using Application.Services.DbService.PriceData.Commands;
+using Application.Services.DbService.Result.Commands;
 using Domain.Entities;
+using MediatR;
 using Shared.Services;
 using System;
 using System.Collections.Generic;
@@ -13,11 +16,20 @@ namespace Application.Services
 {
     public class PriceDataService : IPriceDataService
     {
+        private readonly IMediator _mediator;
+
+        public PriceDataService(IMediator mediator)
+        {
+            _mediator = mediator;
+        }
         public async Task<IEnumerable<Result>> ProcessPriceDataAsync(string path)
         {
             var finalResults = new List<Result>();
             var results = new List<PriceData>();
             var priceDataList = await ParsePriceDataCsvAsync(path);
+
+            await _mediator.Send(new DeletePriceDataCommand());
+            await _mediator.Send(new CreatePriceDataCommand { PriceData = priceDataList });
 
             double prevClosingPrice = 0;
             foreach (var priceData in priceDataList)
@@ -37,6 +49,9 @@ namespace Application.Services
                     prevClosingPrice = await AddValidFinalResultAsync(finalResults, results, prevClosingPrice, priceData, status);
                 }
             }
+
+            await _mediator.Send(new DeleteResultCommand());
+            await _mediator.Send(new CreateResultCommand { Result = finalResults });
 
             return finalResults;
         }

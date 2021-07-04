@@ -1,6 +1,8 @@
 ﻿using Application.Services;
 using Domain.Entities;
 using FluentAssertions;
+using MediatR;
+using Moq;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
@@ -14,10 +16,12 @@ namespace Application.UnitTests.Services
     public class PriceDataServiceTests
     {
         private readonly PriceDataService _sut;
+        private readonly Mock<IMediator> _mockMediator;
 
-        public PriceDataServiceTests()
+        public PriceDataServiceTests(Mock<IMediator> mockMediator = null)
         {
-            _sut = new PriceDataService();
+            _sut = new PriceDataService(_mockMediator.Object);
+            _mockMediator = mockMediator;
         }
         [Test]
         public async Task PriceDataService_ParsePriceDataCsvAsync_Tests() 

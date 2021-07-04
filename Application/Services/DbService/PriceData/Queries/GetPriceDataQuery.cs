@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Persistence.Contexts;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -15,7 +16,7 @@ namespace Application.Services.DbService.PriceData.Queries
         public async Task<IEnumerable<Domain.Entities.PriceData>> Handle(GetPriceDataQuery request, CancellationToken cancellationToken)
         {
             using AppDbContext db = new();
-            return await Task.FromResult(db.PriceData);
+            return await Task.FromResult(db.PriceData.ToList());
         }
     }
 }

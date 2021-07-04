@@ -16,7 +16,8 @@ namespace Persistence.Contexts
 
         protected override void OnConfiguring(DbContextOptionsBuilder dbContextOptionsBuilder)
         {
-            dbContextOptionsBuilder.UseSqlite("Data Source = PriceData.db");
+            string dbPath = AppDomain.CurrentDomain.BaseDirectory;
+            dbContextOptionsBuilder.UseSqlite($"Data Source={dbPath}\\PriceData.db");
         }
     }
 }
