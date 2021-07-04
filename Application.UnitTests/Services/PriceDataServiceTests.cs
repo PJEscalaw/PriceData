@@ -15,13 +15,13 @@ namespace Application.UnitTests.Services
 {
     public class PriceDataServiceTests
     {
-        private readonly PriceDataService _sut;
         private readonly Mock<IMediator> _mockMediator;
+        private readonly PriceDataService _sut;
 
-        public PriceDataServiceTests(Mock<IMediator> mockMediator = null)
+        public PriceDataServiceTests()
         {
+            _mockMediator = new Mock<IMediator>();
             _sut = new PriceDataService(_mockMediator.Object);
-            _mockMediator = mockMediator;
         }
         [Test]
         public async Task PriceDataService_ParsePriceDataCsvAsync_Tests() 
