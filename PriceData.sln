@@ -23,7 +23,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PriceData.WebApi", "PriceDa
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Application.UnitTests", "Application.UnitTests\Application.UnitTests.csproj", "{A557CDAE-DF49-4F9E-A58E-22631D5103B8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Persistence", "Persistence\Persistence.csproj", "{2CF3F94E-6701-40B8-A540-34BC00B23937}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Persistence", "Persistence\Persistence.csproj", "{2CF3F94E-6701-40B8-A540-34BC00B23937}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application.IntegrationTests", "Application.IntegrationTests\Application.IntegrationTests.csproj", "{38FB52AC-6A08-47E6-92ED-0B1A2B34AAED}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -55,6 +57,10 @@ Global
 		{2CF3F94E-6701-40B8-A540-34BC00B23937}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2CF3F94E-6701-40B8-A540-34BC00B23937}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2CF3F94E-6701-40B8-A540-34BC00B23937}.Release|Any CPU.Build.0 = Release|Any CPU
+		{38FB52AC-6A08-47E6-92ED-0B1A2B34AAED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{38FB52AC-6A08-47E6-92ED-0B1A2B34AAED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{38FB52AC-6A08-47E6-92ED-0B1A2B34AAED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{38FB52AC-6A08-47E6-92ED-0B1A2B34AAED}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -69,6 +75,7 @@ Global
 		{AC1E8A16-1EBD-4652-BFB0-220BDCF7BD4F} = {7A52BF55-DBEF-4720-AABF-CE2C63F0C4BE}
 		{A557CDAE-DF49-4F9E-A58E-22631D5103B8} = {71225589-B1F4-4644-B400-BBB66BFB798A}
 		{2CF3F94E-6701-40B8-A540-34BC00B23937} = {525A1434-0973-4A7D-A332-F02CF7FDE828}
+		{38FB52AC-6A08-47E6-92ED-0B1A2B34AAED} = {71225589-B1F4-4644-B400-BBB66BFB798A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E34BB70A-F846-4DFD-ABC8-8238838A061F}

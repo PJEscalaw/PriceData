@@ -11,13 +11,11 @@ namespace Application.Behaviours
     {
         private readonly Stopwatch _timer;
         private readonly ILogger _logger;
-        private readonly IConfiguration _configuration;
 
-        public PerformanceLoggingBehaviour(ILogger logger, IConfiguration configuration)
+        public PerformanceLoggingBehaviour(ILogger logger)
         {
             _timer = new Stopwatch();
             _logger = logger;
-            _configuration = configuration;
         }
         public async Task<TResponse> Handle(TRequest request, CancellationToken cancellationToken, RequestHandlerDelegate<TResponse> next)
         {
