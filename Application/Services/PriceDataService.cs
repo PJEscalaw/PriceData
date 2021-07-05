@@ -53,7 +53,7 @@ namespace Application.Services
             await _mediator.Send(new DeleteResultCommand());
             await _mediator.Send(new CreateResultCommand { Result = finalResults });
 
-            return finalResults;
+            return finalResults.FindAll(x => x.PercentGained.Value > 0);
         }
         public async Task<double> AddValidFinalResultAsync(List<Result> finalResults, List<PriceData> results, double prevClosingPrice, CsvMappingResult<PriceData> priceData, int status)
         {

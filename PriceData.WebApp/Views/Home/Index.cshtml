@@ -1,0 +1,52 @@
+﻿@model IEnumerable<ResultModel>
+
+@{
+    ViewData["Title"] = "Prices";
+}
+
+<div class="text-center">
+    @using (Html.BeginForm("Index", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-4 col-sm-6">
+                    <table cellpadding="5">
+                        <tr>
+                            <td><input type="file" name="postedFile" /></td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div class="col-lg-3 col-md-4 col-sm-6">
+                    <input type="submit" value="Submit" />
+                </div>
+            </div>
+        </div>
+    }
+
+
+    <table class="table" id="prices">
+        <thead>
+            <tr>
+                <th>Buy</th>
+                <th>Sell</th>
+                <th>Percent Gained</th>
+            </tr>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Buy)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Sell)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PercentGained)
+                    </td>
+                </tr>
+            }
+
+        </thead>
+    </table>
+</div>

@@ -6,8 +6,8 @@ namespace PriceData.WebApi.Controllers.AppControllers
 {
     public class PriceDataController : BaseApiController
     {
-        [HttpGet("pricedata/{path}")]
-        public async Task<IActionResult> Get(string path) =>
+        [HttpGet("pricedata")]
+        public async Task<IActionResult> Get([FromQuery]string path) =>
             Ok(await Mediator.Send(new ParsePriceDataCommand { Path = path}));
     }
 }
