@@ -20,7 +20,7 @@ namespace Application.Services.DbService.PriceData.Commands
         }
         public async Task<bool> Handle(DeletePriceDataCommand request, CancellationToken cancellationToken)
         {
-            var prices = await _mediator.Send(new GetPriceDataQuery());
+            var prices = await _mediator.Send(new GetPriceDataQuery(), cancellationToken);
 
             using AppDbContext db = new();
             db.RemoveRange(prices);
